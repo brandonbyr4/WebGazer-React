@@ -45,7 +45,6 @@ const EyeTracker = () => {
 
     window.addEventListener("resize", handleResize);
     return () => {
-      webgazer.end();
       window.removeEventListener("resize", handleResize);
     };
   }, []);
@@ -190,7 +189,7 @@ const EyeTracker = () => {
         {Array.from({ length: 9 }).map((_, index) => (
           <button
             key={index + 1}
-            className="Calibration"
+            className="Calibration bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg fixed top-4 right-4 z-50 shadow-lg hover:bg-blue-600 transition duration-200"
             id={`Pt${index + 1}`}
             onClick={() => handleCalibrationClick(`Pt${index + 1}`)}
           ></button>
