@@ -1,0 +1,81 @@
+/* Base styles */
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Eye tracking styles */
+body {
+    min-width:600px!important;
+}
+
+button {
+    border-radius: 4px;
+}
+
+li {
+    padding-left: 50px;
+}
+
+/* Calibration button styling */
+.Calibration{
+    width: 20px;
+    height: 20px;
+    background-color: #06b6d4;
+    opacity: 0.2;
+    position:fixed;
+    border: 0px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+/* Calibration point position */
+#Pt1{
+    top: 70px;
+    left:2vw;
+}
+#Pt2{
+    top: 70px;
+    left:50vw;
+    margin-left: 340;
+}
+#Pt3{
+    top: 70px;
+    right:2vw;
+}
+#Pt4{
+    top:50vh;
+    left:2vw;
+}
+#Pt5{
+    top: 50vh;
+    left: 50vw;
+}
+#Pt6{
+    top: 50vh;
+    right:2vw;
+}
+#Pt7{
+    bottom:2vw;
+    left: 2vw;
+}
+#Pt8{
+    bottom:2vw;
+    left:50vw;
+}
+#Pt9{
+    bottom:2vw;
+    right:2vw;
+}
