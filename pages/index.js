@@ -87,6 +87,7 @@ const EyeTracker = () => {
       clearCanvas();
       centerPoint.style.display = 'none';
       setCalibrationPoints({});
+      setCalibrating(false);
       
       alert("Calibration successful! Accuracy: " + precisionMeasurement + "%");
     });
@@ -183,7 +184,7 @@ const EyeTracker = () => {
   return (
     <div>
       <canvas id="plotting_canvas" ref={canvasRef}></canvas>
-      {currentlyTracking && <button
+      {currentlyTracking && !calibrating && <button
         onClick={restart}
         className="
           fixed
@@ -201,54 +202,56 @@ const EyeTracker = () => {
       >
         Calibrate
       </button>}
-      {currentlyTracking === false ?
-        <button
-          onClick={() => {
-            webgazer.begin()
-            webgazer.showVideo(true)
+      {!calibrating && <>
+        {currentlyTracking === false ?
+          <button
+            onClick={() => {
+              webgazer.begin()
+              webgazer.showVideo(true)
 
-            setCurrentlyTracking(true)
-          }}
-          className="
-            fixed
-            top-2
-            right-2
-            py-2
-            px-4
-            text-white
-            bg-blue-500
-            hover:bg-sky-500
-            rounded-full
-            transition
-            z-[100]
-          "
-        >
-          Start tracking
-        </button> : 
-        <button
-          onClick={() => {
-            webgazer.end()
-            webgazer.stopVideo()
+              setCurrentlyTracking(true)
+            }}
+            className="
+              fixed
+              top-2
+              right-2
+              py-2
+              px-4
+              text-white
+              bg-blue-500
+              hover:bg-sky-500
+              rounded-full
+              transition
+              z-[100]
+            "
+          >
+            Start tracking
+          </button> : 
+          <button
+            onClick={() => {
+              webgazer.end()
+              webgazer.stopVideo()
 
-            setCurrentlyTracking(false)
-          }}
-          className="
-            fixed
-            top-2
-            right-2
-            py-2
-            px-4
-            text-white
-            bg-red-500
-            hover:bg-pink-500
-            rounded-full
-            transition
-            z-[100]
-          "
-        >
-          Stop tracking
-        </button>
-      }
+              setCurrentlyTracking(false)
+            }}
+            className="
+              fixed
+              top-2
+              right-2
+              py-2
+              px-4
+              text-white
+              bg-red-500
+              hover:bg-pink-500
+              rounded-full
+              transition
+              z-[100]
+            "
+          >
+            Stop tracking
+          </button>
+        }
+      </>}
       <div className="calibrationDiv">
         {Array.from({ length: 9 }).map((_, index) => (
           <button
