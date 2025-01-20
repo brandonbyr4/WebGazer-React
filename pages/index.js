@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const EyeTracker = () => {
   const canvasRef = useRef(null);
+  const [currentlyTracking, setCurrentlyTracking] = useState(true);
   const [calibrationPoints, setCalibrationPoints] = useState({});
   const [pointCalibrate, setPointCalibrate] = useState(0);
 
@@ -182,7 +183,7 @@ const EyeTracker = () => {
   return (
     <div>
       <canvas id="plotting_canvas" ref={canvasRef}></canvas>
-      <button
+      {currentlyTracking && <button
         onClick={restart}
         className="
           fixed
@@ -199,7 +200,55 @@ const EyeTracker = () => {
         "
       >
         Calibrate
-      </button>
+      </button>}
+      {currentlyTracking === false ?
+        <button
+          onClick={() => {
+            webgazer.begin()
+            webgazer.showVideo(true)
+
+            setCurrentlyTracking(true)
+          }}
+          className="
+            fixed
+            top-2
+            right-2
+            py-2
+            px-4
+            text-white
+            bg-blue-500
+            hover:bg-sky-500
+            rounded-full
+            transition
+            z-[100]
+          "
+        >
+          Start tracking
+        </button> : 
+        <button
+          onClick={() => {
+            webgazer.end()
+            webgazer.stopVideo()
+
+            setCurrentlyTracking(false)
+          }}
+          className="
+            fixed
+            top-2
+            right-2
+            py-2
+            px-4
+            text-white
+            bg-red-500
+            hover:bg-pink-500
+            rounded-full
+            transition
+            z-[100]
+          "
+        >
+          Stop tracking
+        </button>
+      }
       <div className="calibrationDiv">
         {Array.from({ length: 9 }).map((_, index) => (
           <button
