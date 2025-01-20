@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 const EyeTracker = () => {
   const canvasRef = useRef(null);
   const [currentlyTracking, setCurrentlyTracking] = useState(true);
+  const [calibrating, setCalibrating] = useState(false);
   const [calibrationPoints, setCalibrationPoints] = useState({});
-  const [pointCalibrate, setPointCalibrate] = useState(0);
 
   useEffect(() => {
     const initializeWebGazer = async () => {
@@ -14,7 +14,7 @@ const EyeTracker = () => {
           // console.log(data);
           // console.log(clock);
         })
-        .saveDataAcrossSessions(true)
+        .saveDataAcrossSessions(false)
         .begin();
 
       webgazer
@@ -86,6 +86,7 @@ const EyeTracker = () => {
 
       clearCanvas();
       centerPoint.style.display = 'none';
+      setCalibrationPoints({});
       
       alert("Calibration successful! Accuracy: " + precisionMeasurement + "%");
     });
@@ -104,7 +105,6 @@ const EyeTracker = () => {
         document.getElementById(id).style.opacity = opacity;
       }
 
-      setPointCalibrate(newCalibrate);
       if (newCalibrate === 8) {
         document.getElementById("Pt5").style.display = "block";
       }
@@ -121,6 +121,8 @@ const EyeTracker = () => {
   };
 
   const showCalibrationPoints = () => {
+    setCalibrating(true);
+
     document.querySelectorAll(".Calibration").forEach((i) => {
       i.style.display = "block";
     });
@@ -133,8 +135,6 @@ const EyeTracker = () => {
       i.style.opacity = "0.2";
       i.removeAttribute("disabled");
     });
-    setCalibrationPoints({});
-    setPointCalibrate(0);
   };
 
   const restart = () => {
@@ -255,6 +255,7 @@ const EyeTracker = () => {
             key={index + 1}
             className="
               Calibration
+              hidden
               bg-blue-500
               text-white
               font-semibold
