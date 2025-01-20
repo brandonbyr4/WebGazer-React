@@ -182,14 +182,43 @@ const EyeTracker = () => {
   return (
     <div>
       <canvas id="plotting_canvas" ref={canvasRef}></canvas>
-      <button onClick={restart} style={{ zIndex: 99, position: "fixed" }}>
+      <button
+        onClick={restart}
+        className="
+          fixed
+          top-2
+          left-2
+          py-2
+          px-4
+          text-white
+          bg-blue-500
+          hover:bg-sky-500
+          rounded-full
+          transition
+          z-[100]
+        "
+      >
         Calibrate
       </button>
       <div className="calibrationDiv">
         {Array.from({ length: 9 }).map((_, index) => (
           <button
             key={index + 1}
-            className="Calibration bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg fixed top-4 right-4 z-50 shadow-lg hover:bg-blue-600 transition duration-200"
+            className="
+              Calibration
+              bg-blue-500
+              text-white
+              font-semibold
+              py-2
+              px-4
+              rounded-lg
+              fixed
+              z-50
+              shadow-lg
+              hover:bg-blue-600
+              transition
+              duration-200
+            "
             id={`Pt${index + 1}`}
             onClick={() => handleCalibrationClick(`Pt${index + 1}`)}
           ></button>
